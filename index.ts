@@ -11,7 +11,6 @@ export const getAllPaths = (registry) => {
     allPaths.push(location);
   });
   // Refactor using a reducer
-  console.log(allPaths);
   return allPaths
 }
 
@@ -23,6 +22,14 @@ export const getAllPaths = (registry) => {
  * @returns {Boolean} if the user has acces
  */
 export const hasAccess = (user, path, paths): boolean => {
+  if (!path) {
+    return true;
+  } else {
+    const targetPath = paths.find(p => p.absolutePath === path);
+    if (user.level >= targetPath.level) {
+      return hasAccess(user, path.substring(0, path.lastIndexOf("\/")), paths);
+    }
+  }
   return false
 }
 
@@ -33,5 +40,5 @@ export const hasAccess = (user, path, paths): boolean => {
  * @returns {Array<Object>} filtered array of routes
  */
 export const getUserPaths = (user, paths) => {
-  return []
+  return paths.filter(path => hasAccess(user, path.absolutePath, paths));
 }
