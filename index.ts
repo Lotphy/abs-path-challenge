@@ -6,9 +6,11 @@
 export const getAllPaths = (registry) => {
   const allPaths = [];
   registry.forEach(location => {
-    const parent = allPaths.find(path => path.endsWith(location.parent)) ?? '';
-    allPaths.push(location.parent !== '/' ? parent + location.path : location.path);
+    const parent = allPaths.find(loc => loc.absolutePath.endsWith(location.parent)) ?? null;
+    location.absolutePath = location.parent !== null && location.parent !== '/' ? parent.absolutePath + location.path : location.path;
+    allPaths.push(location);
   });
+  // Refactor using a reducer
   console.log(allPaths);
   return allPaths
 }
