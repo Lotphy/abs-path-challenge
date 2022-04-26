@@ -1,4 +1,4 @@
-## 🚀 Welcome to the PayFit live coding challenge
+## 🚀 Welcome to the TifYap live coding challenge
 
 ### 💻 Context
 
